@@ -61,3 +61,10 @@ Use `crc32` unless you actually need to stream.
 - `crc32Hex(data)` — the same checksum as eight lowercase hex digits.
 - `crc32Update(seed, data)` — folds a chunk into an unfinalised register and
   returns the new register. Seed the first call with `0xffffffff`.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
